@@ -34,12 +34,18 @@ function choseImage(e) {
       `);
 
     instance.show();
+    // instance.onClose();
     // console.log(e.target);
+    document.addEventListener("keydown", showModal);
+
+    function showModal(e) {
+      e.preventDefault();
+      if (e.key === "Escape") {
+        //   instance.onClose:
+        instance.close();
+        document.removeEventListener("keydown", showModal);
+      }
+      console.log(e.key);
+    }
   }
 }
-document.addEventListener("keydown", (e) => {
-  e.preventDefault();
-  if (e.key === "Escape") {
-    instance.close();
-  }
-});
