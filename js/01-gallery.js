@@ -29,21 +29,26 @@ function choseImage(e) {
   if (e.target.dataset.source) {
     const image = e.target.dataset.source;
 
-    const instance = basicLightbox.create(`
+    const instance = basicLightbox.create(
+      `
       <img src="${image}" width="800" height="600">
-      `);
+      `,
+      {
+        onClose: () => {
+          document.removeEventListener("keydown", showModal);
+        },
+      }
+    );
 
     instance.show();
-    // instance.onClose();
-    // console.log(e.target);
+
     document.addEventListener("keydown", showModal);
 
     function showModal(e) {
       e.preventDefault();
       if (e.key === "Escape") {
-        //   instance.onClose:
         instance.close();
-        document.removeEventListener("keydown", showModal);
+        // document.removeEventListener("keydown", showModal);
       }
       console.log(e.key);
     }
